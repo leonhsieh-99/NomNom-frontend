@@ -1,25 +1,14 @@
-# NomNom Backend 🍽️
+# NomNom Frontend 🍜
 
-A Flask-based API for NomNom — a restaurant randomizer app that queries the Yelp Fusion API and returns filtered restaurant recommendations.
+This is the frontend for **NomNom**, a restaurant randomizer app built with React and Vite. It allows users to filter restaurants by location, price, rating, and more.
 
----
+### 🚀 Tech Stack
+- React + Vite + TypeScript
+- Tailwind CSS
+- Google Maps Places API
 
-## 🚀 Tech Stack
-
-- Python 3.11
-- Flask
-- Gunicorn
-- Yelp Fusion API
-- Hosted on [Render](https://render.com)
-
----
-
-## 📦 Setup (Local)
-
-1. Clone the repo
-2. Set up your virtual environment:
+### 🔧 Setup
 
 ```bash
-python -m venv venv
-source venv/bin/activate  # or .\venv\Scripts\activate on Windows
-pip install -r requirements.txt
+npm install
+npm run dev
