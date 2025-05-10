@@ -21,6 +21,7 @@ function App() {
 	const [openNow, setOpenNow] = useState<boolean>(false);
 	const [shownRestaurants, setShownRestaurants] = useState<Set<string>>(new Set());
 	const [locationError, setLocationError] = useState<boolean>(false);
+	const [loading, setLoading] = useState(false);
 	const locationInputRef = useRef<HTMLInputElement>(null);
 
 	// Reset shown restaurants when filters change
@@ -61,6 +62,7 @@ function App() {
 
 	const handleSubmit = async (e:React.FormEvent) => {
 		e.preventDefault();
+		setLoading(true);
 
 		const query = new URLSearchParams();
 		if (coords) {
@@ -75,6 +77,7 @@ function App() {
 
 		try {
 			const result = await fetchRandomRestaurant(query.toString());
+			setLoading(false);
 			
 			// If we've shown all restaurants, reset the shown list
 			if (shownRestaurants.size >= 50) { // Assuming max 50 results from Yelp
@@ -292,9 +295,21 @@ function App() {
 
 						<button 
 							type="submit"
-							className="w-full mb-7 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg transition-colors"
+							disabled={loading}
+							className={`relative w-full mb-7 py-3 font-semibold rounded-lg transition-colors flex gap-2 items-center justify-center ${
+								loading 
+								? 'bg-gray-500 cursor-not-allowed'
+								:  'bg-indigo-500 hover:bg-indigo-600 text-white'
+							}`}
 						>
-							Find Restaurant
+							<span>Find Restaurant</span>
+							{loading && (
+								<span className="absolute right-4 flex space-x-1">
+									<span className="w-1.5 h-1.5 bg-white rounded-full animate-dots" style={{ animationDelay: '0s' }}></span>
+									<span className="w-1.5 h-1.5 bg-white rounded-full animate-dots" style={{ animationDelay: '0.2s' }}></span>
+									<span className="w-1.5 h-1.5 bg-white rounded-full animate-dots" style={{ animationDelay: '0.4s' }}></span>
+								</span>
+							)}
 						</button>
 					</form>
 
